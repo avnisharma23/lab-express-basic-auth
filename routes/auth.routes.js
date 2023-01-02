@@ -38,5 +38,28 @@ router.get('/profile/:username', (req, res) => {
     
 })
 
+//login
+
+router.get('/login',(req,res) =>{
+    res.render('/auth/login')
+})
+
+router.post('/login',(req,res) => {
+
+    const { username,password } = req.body;
+    User.findOne(username)
+        .then(foundUser => {
+            return bcrypt.compare(password,foundUser.password)
+            .then(result => {
+                if(result){
+                    res.redirect(`/auth/profile/${foundUser.username}`)
+                }
+                else{
+                    res.render('auth/login', { errorMessage: 'Incorrect password, try again' })
+                }
+            })
+        })
+        .catch(errro => console.log(error))
+})
 
 module.exports = router;
