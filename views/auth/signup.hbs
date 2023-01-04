@@ -1,7 +1,10 @@
 <h1>SignUp</h1>
 
 <form action="/auth/signup" method="post">
-    <input type="text" name="username" placeholder="Enter your username">
-    <input type="password" name="password" placeholder="Enter your password">
+    <input type="text" name="username" placeholder="Enter your username" required>
+    <input type="password" name="password" placeholder="Enter your password" required>
     <button type="submit">Signup</button>
 </form>
+{{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+  {{/if}}
